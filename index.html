@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
-    
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -68,14 +67,13 @@
     .hamburger.open span:nth-child(3) { transform: rotate(-42deg) translateY(1px); }
 
     /* Mobile drawer */
-   .mobile-menu {
-  position: fixed; inset: 0; z-index: 190;
-  background: rgba(17,26,20,0.98);
-  flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; padding: 2rem;
-  transform: translateX(100%); transition: transform 0.38s cubic-bezier(0.77,0,0.18,1);
-  display: flex;
-}
-.mobile-menu.open { transform: translateX(0); }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: rgba(17,26,20,0.98);
+      flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; padding: 2rem;
+      transform: translateX(100%); transition: transform 0.38s cubic-bezier(0.77,0,0.18,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
     .mobile-menu a { font-family: var(--ff-display); font-size: 2.6rem; letter-spacing: 0.06em; color: var(--white); text-decoration: none; transition: color 0.2s; }
     .mobile-menu a:hover { color: var(--coral); }
     .mobile-menu .mob-cta { background: var(--coral); color: var(--white) !important; padding: 0.9rem 3rem; border-radius: 3rem; font-size: 2rem; margin-top: 0.8rem; }
@@ -222,6 +220,7 @@
     @media (max-width: 900px) {
       .nav-links { display:none; }
       .hamburger { display:flex; }
+      .mobile-menu { display:flex; }
       .scroll-hint { display:none; }
       #what-we-do { grid-template-columns:1fr; }
       .what-visual { height:260px; }
@@ -394,7 +393,7 @@
   <div class="instructors-grid">
     <div class="instructor-card">
 <div class="instructor-photo instructor-photo-jack">
-  <img src="Jackpic.jpg" alt="Jack" style="width:100%;height:100%;object-fit:cover;object-position:50% 25%;" />
+  <img src="Jackpic.JPG" alt="Jack" style="width:100%;height:100%;object-fit:cover;object-position:50% 25%;" />
 </div>
       <div class="instructor-info">
         <h3 class="instructor-name">Jack</h3>
