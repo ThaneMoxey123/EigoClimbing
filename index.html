@@ -33,14 +33,14 @@
 
     /* ─── NAV ─── */
     nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: var(--nav-h);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(1.2rem, 5vw, 4rem);
-  transition: background 0.4s, box-shadow 0.4s;
-  background: rgba(26,61,43,0.85);
-}
-    nav.scrolled { background: rgba(26,61,43,0.95); backdrop-filter: blur(14px); box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.2rem, 5vw, 4rem);
+      background: rgba(26,61,43,0.92);
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled { background: rgba(26,61,43,0.98); backdrop-filter: blur(14px); box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
 
     .nav-brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
     .logo-box {
@@ -49,7 +49,6 @@
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
       font-size: 0.48rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
       color: rgba(255,255,255,0.55); text-align: center; line-height: 1.4;
-      /* Replace with <img src="logo.png" style="height:44px;width:auto;border-radius:10px"> */
     }
     .nav-name { font-family: var(--ff-display); font-size: 1.55rem; letter-spacing: 0.06em; color: var(--white); line-height: 1; }
     .nav-name span { color: var(--coral); }
@@ -60,25 +59,47 @@
     .nav-cta { background: var(--coral) !important; color: var(--white) !important; padding: 0.5rem 1.3rem; border-radius: 2rem; }
     .nav-cta:hover { background: var(--coral-light) !important; color: var(--dark) !important; }
 
-    /* Hamburger */
+    /* ─── HAMBURGER BUTTON ─── */
     .hamburger {
-  display: none;
-  flex-direction: column; justify-content: center; gap: 5px;
-  width: 42px; height: 42px; padding: 8px;
-  border: none; background: var(--coral); border-radius: 8px;
-  cursor: pointer; z-index: 210;
-}
-    .hamburger span { display: block; height: 2px; background: var(--white); border-radius: 2px; transition: transform 0.3s, opacity 0.3s, width 0.3s; transform-origin: left center; }
+      display: none; /* hidden on desktop, shown via media query below */
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      padding: 8px;
+      border: none;
+      background: var(--coral);
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 210;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s, width 0.3s;
+      transform-origin: left center;
+    }
     .hamburger.open span:nth-child(1) { transform: rotate(42deg) translateY(-1px); }
     .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
     .hamburger.open span:nth-child(3) { transform: rotate(-42deg) translateY(1px); }
 
-    /* Mobile drawer */
+    /* ─── MOBILE DRAWER ───
+       KEY FIX: always display:flex, hidden off-screen with transform.
+       Never use display:none on this element.
+    ─── */
     .mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 190;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8rem;
+      padding: 2rem;
+      position: fixed; inset: 0;
+      z-index: 190;
       background: rgba(17,26,20,0.98);
-      flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; padding: 2rem;
-      transform: translateX(100%); transition: transform 0.38s cubic-bezier(0.77,0,0.18,1);
+      transform: translateX(100%);
+      transition: transform 0.38s cubic-bezier(0.77,0,0.18,1);
     }
     .mobile-menu.open { transform: translateX(0); }
     .mobile-menu a { font-family: var(--ff-display); font-size: 2.6rem; letter-spacing: 0.06em; color: var(--white); text-decoration: none; transition: color 0.2s; }
@@ -225,43 +246,43 @@
 
     /* ─────────── RESPONSIVE ─────────── */
     @media (max-width: 900px) {
-      .nav-links { display:none; }
-      .hamburger { display:flex; }
-      .mobile-menu { display:flex; }
-      .scroll-hint { display:none; }
-      #what-we-do { grid-template-columns:1fr; }
-      .what-visual { height:260px; }
-      #why-us { grid-template-columns:1fr; }
-      footer { grid-template-columns:1fr 1fr; }
+      .nav-links   { display: none; }
+      .hamburger   { display: flex; } /* show hamburger button */
+      .scroll-hint { display: none; }
+      #what-we-do  { grid-template-columns: 1fr; }
+      .what-visual { height: 260px; }
+      #why-us      { grid-template-columns: 1fr; }
+      footer       { grid-template-columns: 1fr 1fr; }
+      /* NOTE: do NOT touch .mobile-menu here — it is always display:flex */
     }
 
     @media (max-width: 760px) {
-      #booking { grid-template-columns:1fr; }
-      .form-row { grid-template-columns:1fr; gap:0; }
+      #booking  { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
     }
 
     @media (max-width: 540px) {
-      .why-grid { grid-template-columns:1fr; }
-      .price-grid { grid-template-columns:1fr; }
-      footer { grid-template-columns:1fr; gap:2rem; }
-      .footer-tagline { max-width:100%; }
-      .footer-bottom { justify-content:center; text-align:center; }
-      .hero-actions { flex-direction:column; width:100%; }
-      .btn-primary, .btn-outline { text-align:center; }
+      .why-grid    { grid-template-columns: 1fr; }
+      .price-grid  { grid-template-columns: 1fr; }
+      footer       { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-tagline  { max-width: 100%; }
+      .footer-bottom   { justify-content: center; text-align: center; }
+      .hero-actions    { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-outline { text-align: center; }
     }
 
     @media (max-width: 440px) {
-      :root { --nav-h:60px; }
-      .nav-name { font-size:1.2rem; }
-      .logo-box { width:36px; height:36px; font-size:.44rem; }
-      #about-strip { grid-template-columns:1fr; }
-      .strip-item { border-right:none; border-bottom:1px solid rgba(255,255,255,.08); padding:1.3rem 1rem; }
-      .strip-item:last-child { border-bottom:none; }
+      :root { --nav-h: 60px; }
+      .nav-name { font-size: 1.2rem; }
+      .logo-box { width: 36px; height: 36px; font-size: .44rem; }
+      #about-strip { grid-template-columns: 1fr; }
+      .strip-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); padding: 1.3rem 1rem; }
+      .strip-item:last-child { border-bottom: none; }
     }
 
     @media (max-width: 360px) {
-      .hero-title { font-size:2.7rem; }
-      .mobile-menu a { font-size:2rem; }
+      .hero-title    { font-size: 2.7rem; }
+      .mobile-menu a { font-size: 2rem; }
     }
   </style>
 </head>
@@ -271,13 +292,9 @@
 <nav id="navbar">
   <a href="#" class="nav-brand">
     <!--
-      ╔══════════════════════════════════════════╗
-      ║  LOGO PLACEHOLDER                        ║
-      ║  Replace the div below with:             ║
-      ║  <img src="logo.png" alt="Eigo Climbing" ║
-      ║       style="height:44px;width:auto;     ║
-      ║              border-radius:10px" />      ║
-      ╚══════════════════════════════════════════╝
+      LOGO PLACEHOLDER
+      Replace the div below with:
+      <img src="logo.png" alt="Eigo Climbing" style="height:44px;width:auto;border-radius:10px" />
     -->
     <div class="logo-box">Your<br>Logo</div>
     <span class="nav-name">Eigo<span> Climbing</span></span>
@@ -291,12 +308,13 @@
     <li><a href="#booking" class="nav-cta">Book Now</a></li>
   </ul>
 
+  <!-- Coral button — always visible on mobile -->
   <button class="hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- Mobile Drawer -->
+<!-- Mobile Drawer — always in DOM, slides in/out with transform -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#what-we-do"  onclick="closeMenu()">About</a>
   <a href="#sessions"    onclick="closeMenu()">Sessions</a>
@@ -398,10 +416,11 @@
   <h2 class="section-title" style="margin:0 auto;">Your Instructors</h2>
   <p class="section-body" style="margin:1rem auto 0;text-align:center;">Two London-born, Saitama-based instructors. Qualified climbers. Qualified teachers. Genuinely passionate about both.</p>
   <div class="instructors-grid">
+
     <div class="instructor-card">
-<div class="instructor-photo instructor-photo-jack">
-  <img src="Jackpic.JPG" alt="Jack" style="width:100%;height:100%;object-fit:cover;object-position:50% 25%;" />
-</div>
+      <div class="instructor-photo instructor-photo-jack">
+        <img src="Jackpic.jpg" alt="Jack" style="width:100%;height:100%;object-fit:cover;object-position:50% 25%;" />
+      </div>
       <div class="instructor-info">
         <h3 class="instructor-name">Jack</h3>
         <p class="instructor-role">Lead Instructor &amp; Co-founder</p>
@@ -411,18 +430,21 @@
         </div>
       </div>
     </div>
+
     <div class="instructor-card">
-      <div class="instructor-photo instructor-photo-alex"><img src="Andy.jpg" alt="Jack" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;" />
-</div>
+      <div class="instructor-photo instructor-photo-alex">
+        <img src="Andy.jpg" alt="Andy" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;" />
+      </div>
       <div class="instructor-info">
-        <h3 class="instructor-name">Your Partner's Name</h3>
-        <p class="instructor-role">Lead Instructor &amp; Co-founder</p>
+        <h3 class="instructor-name">Andy</h3>
+        <p class="instructor-role">Co-Instructor &amp; Co-founder</p>
         <p class="instructor-bio">A fellow Londoner and long-time climbing enthusiast, bringing experience in English teaching and bouldering to every session. His calm, encouraging approach makes students of all ages feel confident on the wall and in conversation.</p>
         <div class="instructor-tags">
           <span class="tag">Climbing Instructor</span><span class="tag">TEFL Qualified</span><span class="tag">English Teaching</span><span class="tag">First Aid</span>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -506,10 +528,6 @@
 <footer>
   <div class="footer-brand">
     <div class="footer-logo-wrap">
-      <!--
-        FOOTER LOGO PLACEHOLDER
-        Replace <div class="footer-logo-box"> with your <img> when ready
-      -->
       <div class="footer-logo-box">Logo</div>
       <div class="footer-brand-name">Eigo<span> Climbing</span></div>
     </div>
@@ -562,14 +580,21 @@
   // ── Hamburger ──
   const hamburger  = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
+
   function closeMenu() {
     hamburger.classList.remove('open');
     mobileMenu.classList.remove('open');
     document.body.style.overflow = '';
   }
+
   hamburger.addEventListener('click', () => {
-    const isOpen = hamburger.classList.contains('open');
-    isOpen ? closeMenu() : (hamburger.classList.add('open'), mobileMenu.classList.add('open'), document.body.style.overflow = 'hidden');
+    if (hamburger.classList.contains('open')) {
+      closeMenu();
+    } else {
+      hamburger.classList.add('open');
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
   });
 
   // ── Booking form ──
